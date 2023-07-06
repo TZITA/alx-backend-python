@@ -7,7 +7,4 @@ def sum_list(input_list: List[float]) -> float:
     """
     A type-annotated function return sum of floats from a list.
     """
-    sum = 0
-    for i in range(len(input_list)):
-        sum += input_list[i]
-    return sum
+    return sum(input_list)
