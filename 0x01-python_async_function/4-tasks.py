@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-""" """
+""" Async function  """
 import asyncio
 from typing import List
 
