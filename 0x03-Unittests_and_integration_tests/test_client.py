@@ -1,5 +1,5 @@
 #!/ur/bin/env python3
-""" Test client """
+""" Test client modules """
 
 import unittest
 from typing import Dict
@@ -11,14 +11,14 @@ from fixtures import TEST_PAYLOAD
 
 
 class TestGithubOrgClient(unittest.TestCase):
-    """TestGithubOrgClient"""
+    """Test Github Org Client"""
     @parameterized.expand([
         ("google", {'login': "google"}),
         ("abc", {'login': "abc"}),
     ])
     @patch("client.get_json")
     def test_org(self, org: str, resp: Dict, moc: MagicMock):
-        """test_org"""
+        """ test org """
         moc.return_value = MagicMock(return_value=resp)
         ghClient = GithubOrgClient(org)
         self.assertEqual(ghClient.org(), resp)
@@ -26,7 +26,7 @@ class TestGithubOrgClient(unittest.TestCase):
                                     format(org))
 
     def test_public_repos_url(self):
-        """tests_public_repos_url"""
+        """tests public repos url"""
         with patch("client.GithubOrgClient.org",
                    new_callable=PropertyMock) as moc:
             moc.return_value = {'repos_url':
@@ -38,7 +38,7 @@ class TestGithubOrgClient(unittest.TestCase):
 
     @patch("client.get_json")
     def test_public_repos(self, mock_get_json: MagicMock):
-        """tests_public_repos"""
+        """tests public repos"""
         test_payload = {
             'repos_url': "https://api.github.com/users/google/repos",
             'repos': [
@@ -92,7 +92,7 @@ class TestGithubOrgClient(unittest.TestCase):
         ({'license': {'key': "bsl-1.0"}}, "bsd-3-clause", False),
     ])
     def test_has_license(self, repo: Dict, key: str, expected: bool):
-        """test_has_license"""
+        """test has license"""
         ghclient = GithubOrgClient("google")
         client_has_licence = ghclient.has_license(repo, key)
         self.assertEqual(client_has_licence, expected)
@@ -125,14 +125,14 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         cls.get_patcher.start()
 
     def test_public_repos(self):
-        """test_public_repos"""
+        """test public repos"""
         self.assertEqual(
             GithubOrgClient("google").public_repos(),
             self.expected_repos,
         )
 
     def test_public_repos_with_license(self):
-        """Test_public_repos_with_license."""
+        """Test public repos with license."""
         self.assertEqual(
             GithubOrgClient("google").public_repos(license="apache-2.0"),
             self.apache2_repos,
