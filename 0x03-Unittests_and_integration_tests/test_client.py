@@ -1,6 +1,5 @@
-#!/ur/bin/env python3
+#!/usr/bin/env python3
 """ Test client modules """
-
 import unittest
 from typing import Dict
 from unittest.mock import Mock, patch, PropertyMock, MagicMock
